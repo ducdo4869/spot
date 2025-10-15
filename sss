@@ -1,0 +1,21 @@
+function [dKP, dKI, dKD, yh] = RBF(u, y)
+% Khai báo tham số mô phỏng
+t_end = 20;
+dt = 0.01;
+t = 0:dt:t_end;
+N = length(t);
+% Khai báo các biến đầu vào
+x1 = u;
+x2 = y;
+x = [x1, x2];
+j = 5;
+% Khai báo các ma trận lưu kết quả
+mu = zeros(j, 2*N);
+phi = zeros(j, N);
+sigma = zeros(j, N);
+omega = zeros(5,N);
+%Khai báo giá trị các tham số ban đầu
+
+
+%Tính toán
+phi()
