@@ -1,0 +1,15 @@
+function delta = compute_jacobian(weights, phi, mu, sigma, x1)
+    % weights: vector trọng số (h x 1)
+    % phi: vector giá trị RBF (h x 1)
+    % mu: ma trận tâm (h x n)
+    % sigma: vector độ rộng (h x 1)
+    % x1: giá trị Δu(k) (input đầu tiên)
+    % J: giá trị Jacobian
+
+    h = length(weights);
+    delta = 0;
+
+    for j = 1:h
+        delta = delta + weights(j) * phi(j) * (mu(j,1) - x1) / (sigma(j)^2);
+    end
+end
