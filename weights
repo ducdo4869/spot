@@ -1,0 +1,17 @@
+function weights_new = rbf_weights(weights_prev, weights_prev2, phi, y, y_h, eta, alpha)
+    % weights_prev: vector trọng số tại bước k-1 (h x 1)
+    % weights_prev2: vector trọng số tại bước k-2 (h x 1)
+    % phi: vector giá trị RBF (h x 1)
+    % y: giá trị đầu ra y(k)
+    % y_h: đầu ra mạng RBF y_h(k)
+    % eta: hệ số học
+    % alpha: hệ số quán tính
+    % weights_new: trọng số cập nhật
+    % delta_w: thay đổi trọng số tại bước này
+
+    % Tính delta_w cho từng nút
+    delta_w = eta * (y - y_h) .* phi;
+
+    % Cập nhật trọng số với momentum
+    weights_new = weights_prev + delta_w + alpha * (weights_prev - weights_prev2);
+end
