@@ -1,0 +1,14 @@
+function phi = rbf_basis(X, mu, sigma)
+    % X: vector đầu vào (1 x n)
+    % mu: ma trận tâm (h x n), mỗi hàng là một tâm
+    % sigma: vector độ rộng (h x 1)
+    % phi: vector giá trị RBF (h x 1)
+
+    h = size(mu, 1);      % số nút ẩn
+    phi = zeros(h, 1);    % khởi tạo vector phi
+
+    for j = 1:h
+        diff = X - mu(j, :);           % khoảng cách giữa X và tâm mu_j
+        phi(j) = exp(- (norm(diff)^2) / (2 * sigma(j)^2));
+    end
+end
