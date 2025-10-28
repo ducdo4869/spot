@@ -1,0 +1,17 @@
+function delta_u = compute_delta_u(e, Kp, Ki, Kd)
+    % e: vector sai số [e(k), e(k-1), e(k-2)]
+    % Kp, Ki, Kd: các hệ số PID (có thể là hàm hoặc giá trị tại e(k))
+    % delta_u: giá trị Δu(k)
+
+    % Kiểm tra độ dài e
+    if length(e) < 3
+        error('Vector e phải có ít nhất 3 phần tử: [e(k), e(k-1), e(k-2)]');
+    end
+
+    % Tính các sai số vi phân
+    delta_e = e(1) - e(2);                     % Δe(k)
+    delta2_e = e(1) - 2*e(2) + e(3);           % Δ²e(k)
+
+    % Tính Δu(k)
+    delta_u = Kp * delta_e + Ki * e(1) + Kd * delta2_e;
+end
