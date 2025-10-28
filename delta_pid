@@ -1,0 +1,12 @@
+function [dKp, dKi, dKd] = update_pid_params(e, delta_e, delta2_e, Jaco, eta_p, eta_i, eta_d)
+    % e: sai số hiện tại e(k)
+    % delta_e: Δe(k)
+    % delta2_e: Δ²e(k)
+    % Jaco: giá trị Jacobian ∂y/∂Δu
+    % eta_p, eta_i, eta_d: hệ số học cho Kp, Ki, Kd
+
+    dKp = -eta_p * e * Jaco * delta_e;
+    dKi = -eta_i * e^2 * Jaco;
+    dKd = -eta_d * e * Jaco * delta2_e;
+end
+``
