@@ -1,0 +1,7 @@
+function y_h = rbf_output(phi, weights)
+    % phi: vector giá trị RBF (h x 1)
+    % weights: vector trọng số (h x 1)
+    % y: đầu ra của mạng RBF
+
+    y = sum(weights .* phi);
+end
