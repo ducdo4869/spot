@@ -1,0 +1,23 @@
+function sigma_new = update_sigma(sigma, sigma_prev, sigma_prev2, X, mu, weights, phi, y, y_h, eta, alpha)
+    % sigma: vector sigma tại bước k (h x 1)
+    % sigma_prev: vector sigma tại bước k-1 (h x 1)
+    % sigma_prev2: vector sigma tại bước k-2 (h x 1)
+    % X: vector đầu vào (1 x n)
+    % mu: ma trận tâm tại bước k (h x n)
+    % weights: vector trọng số (h x 1)
+    % phi: vector giá trị RBF (h x 1)
+    % y: giá trị đầu ra mô phỏng
+    % y_h: đầu ra mạng RBF
+    % eta: hệ số học
+    % alpha: hệ số quán tính
+    % sigma_new: vector sigma cập nhật (h x 1)
+
+    h = length(sigma_prev);
+    sigma_new = zeros(h, 1);
+
+    for j = 1:h
+        dist_sq = norm(X - mu(j,:))^2;  % ||X - mu_j||^2
+        delta_sigma = eta * (y - y_h) * weights(j) * phi(j) * (dist_sq / (sigma(j)^3));
+        sigma_new(j) = sigma_prev(j) + delta_sigma + alpha * (sigma_prev(j) - sigma_prev2(j));
+    end
+end
