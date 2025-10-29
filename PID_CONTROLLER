@@ -1,0 +1,21 @@
+function [Kp, Ki, Kd] = NPID_Controller(e, params)
+% NPID_Controller: Tính toán Kp, Ki, Kd cho bộ điều khiển NPID
+% e      : giá trị lỗi (scalar hoặc vector)
+% params : struct chứa các tham số
+%          params.ap, params.bp, params.cp
+%          params.ai, params.bi
+%          params.ad, params.bd, params.cd, params.dd
+
+    % Lấy tham số
+    ap = params.ap; bp = params.bp; cp = params.cp;
+    ai = params.ai; bi = params.bi;
+    ad = params.ad; bd = params.bd; cd = params.cd; dd = params.dd;
+
+    % Hàm sech(x) = 1 / cosh(x)
+    sech = @(x) 1 ./ cosh(x);
+
+    % Tính Kp, Ki, Kd
+    Kp = ap + bp .* (1 - sech(cp .* e));
+    Ki = ai .* sech(bi .* e);
+    Kd = ad + bd ./ (1 + cd .* exp(dd .* e));
+end
